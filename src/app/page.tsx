@@ -1,6 +1,8 @@
+import { caller } from "@/trpc/server";
 
-export default function Home() {
-  return (
-    <div></div>
-  );
-}
+const Page = async () => {
+  const users = await caller.getUsers();
+  return <div>{users.users.length}</div>;
+};
+
+export default Page;
