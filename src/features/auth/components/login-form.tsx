@@ -23,6 +23,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 const loginSchema = z.object({
   email: z.email("Please enter a valid email address"),
@@ -43,8 +45,24 @@ export function LoginForm() {
   });
 
   const onSubmit = async (values: LoginFormSchema) => {
-    console.log(values);
+    console.log("Hello");
+    await authClient.signIn.email(
+      {
+        email: values.email,
+        password: values.password,
+        callbackURL: "/",
+      },
+      {
+        onSuccess: () => {
+          router.push("/");
+        },
+        onError: (error) => {
+          toast.error(error.error.message);
+        },
+      }
+    );
   };
+
   const isPending = form.formState.isSubmitting;
 
   return (
