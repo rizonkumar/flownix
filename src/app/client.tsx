@@ -6,5 +6,5 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 export const Client = () => {
   const trpc = useTRPC();
   const { data: users } = useSuspenseQuery(trpc.getUsers.queryOptions());
-  return <div>{users.users.length}</div>;
+  return <div>{users}</div>;
 };
