@@ -1,5 +1,3 @@
-"use client";
-
 import { SignupForm } from "@/features/auth/components/signup-form";
 
 const Page = () => {

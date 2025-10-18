@@ -23,6 +23,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 const signupSchema = z
   .object({
@@ -50,7 +52,22 @@ export function SignupForm() {
   });
 
   const onSubmit = async (values: SignupFormSchema) => {
-    console.log(values);
+    await authClient.signUp.email(
+      {
+        email: values.email,
+        password: values.password,
+        name: values.email,
+        callbackURL: "/",
+      },
+      {
+        onSuccess: () => {
+          router.push("/");
+        },
+        onError: (error) => {
+          toast.error(error.error.message);
+        },
+      }
+    );
   };
   const isPending = form.formState.isSubmitting;
 
