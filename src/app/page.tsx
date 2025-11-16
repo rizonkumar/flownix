@@ -1,15 +1,10 @@
-import { Client } from "@/app/client";
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { getQueryClient } from "@/trpc/server";
+import { requiredAuth } from "@/lib/auth-utils";
 
 const Page = async () => {
-  const queryClient = getQueryClient();
-
+  await requiredAuth();
   return (
     <div className="min-h-screen min-w-screen flex items-center justify-center">
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Client />
-      </HydrationBoundary>
+      Protected Server Component
     </div>
   );
 };
