@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
+import Image from "next/image";
 
 const loginSchema = z.object({
   email: z.email({ message: "Invalid email address" }),
@@ -61,7 +62,7 @@ export function LoginForm() {
         onError: (error) => {
           toast.error(error.error.message);
         },
-      }
+      },
     );
   };
 
@@ -87,6 +88,12 @@ export function LoginForm() {
                     type="button"
                     disabled={isPending}
                   >
+                    <Image
+                      src="/logos/github.svg"
+                      alt="GitHub"
+                      width={20}
+                      height={20}
+                    />
                     Continue with GitHub
                   </Button>
                   <Button
@@ -95,6 +102,12 @@ export function LoginForm() {
                     type="button"
                     disabled={isPending}
                   >
+                    <Image
+                      src="/logos/google.svg"
+                      alt="Google"
+                      width={20}
+                      height={20}
+                    />
                     Continue with Google
                   </Button>
                 </div>
@@ -139,13 +152,13 @@ export function LoginForm() {
                     disabled={isPending}
                   >
                     {isPending ? (
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     ) : (
                       "Login"
                     )}
                   </Button>
                 </div>
-                <div className="text-center text-sm text-muted-foreground">
+                <div className="text-muted-foreground text-center text-sm">
                   Don&apos;t have an account?{" "}
                   <Link
                     href="/signup"
