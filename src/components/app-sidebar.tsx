@@ -22,6 +22,8 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 const menuItems = [
   {
@@ -112,7 +114,19 @@ export const AppSidebar = () => {
             <SidebarMenuButton
               tooltip="Logout"
               className="h-10 gap-x-4 px-4"
-              onClick={() => {}}
+              onClick={() =>
+                authClient.signOut({
+                  fetchOptions: {
+                    onSuccess: () => {
+                      router.push("/login");
+                      toast.success("Logged out successfully");
+                    },
+                    onError: (error) => {
+                      toast.error(error.error.message);
+                    },
+                  },
+                })
+              }
             >
               <LogOutIcon className="size-4" />
               <span>Logout</span>
